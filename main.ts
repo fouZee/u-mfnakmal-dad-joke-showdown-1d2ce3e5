@@ -4,7 +4,15 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 
 const JOKE =
-  "My son asked me why I always bring a ladder to the barbecue. I said, 'Because the steaks are high, son \u2014 and somebody in this family has to raise them.'";
+  "My son asked why I always bring a ladder to the barbecue. I said, 'Because the steaks are high, son — and somebody's got to raise them.'";
+
+// Entry gate: the joke must be exactly one line of 1-200 characters.
+if (JOKE.length === 0 || JOKE.length > 200) {
+  throw new Error(`Joke must be 1-200 characters, got ${JOKE.length}.`);
+}
+if (JOKE.includes("\n")) {
+  throw new Error("Joke must be a single line.");
+}
 
 mkdirSync("/output", { recursive: true });
 writeFileSync("/output/entry.txt", JOKE, "utf8");
